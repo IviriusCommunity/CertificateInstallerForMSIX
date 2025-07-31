@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<winuiex:WindowEx
+    x:Class="CertificateInstallerForMSIX.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:CertificateInstallerForMSIX"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winuiex="using:WinUIEx"
+    Title="Certificate Installer for MSIX"
+    Width="400"
+    Height="280"
+    IsMaximizable="False"
+    IsResizable="False"
+    mc:Ignorable="d">
+    <winuiex:WindowEx.SystemBackdrop>
+        <MicaBackdrop />
+    </winuiex:WindowEx.SystemBackdrop>
+    <Grid>
+        <StackPanel
+            Margin="8,7"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Orientation="Horizontal"
+            Spacing="6">
+            <Image
+                x:Name="TitleBarIcon"
+                Width="16"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                x:FieldModifier="public"
+                Source="/Assets/Certificate.ico" />
+            <TextBlock
+                x:Name="WindowTitle"
+                x:FieldModifier="public"
+                FontFamily="Segoe UI"
+                FontSize="12"
+                FontWeight="Normal"
+                Text="Certificate Installer for MSIX"
+                TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+        <StackPanel
+            Margin="25,40"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Orientation="Vertical"
+            Spacing="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="PathBox" Header="Certificate path" />
+                <Button
+                    Grid.Column="2"
+                    VerticalAlignment="Bottom"
+                    Command="{x:Bind GetCertificateCommand}"
+                    Content="Open" />
+            </Grid>
+            <PasswordBox x:Name="Password" Header="Password (leave empty if none)" />
+        </StackPanel>
+        <Grid
+            Height="80"
+            VerticalAlignment="Bottom"
+            Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}">
+            <Button
+                x:Name="Install"
+                Width="160"
+                Margin="24"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{x:Bind InstallCertificateCommand}"
+                Content="Install" />
+        </Grid>
+    </Grid>
+</winuiex:WindowEx>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CertificateInstallerForMSIX (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CertificateInstallerForMSIX (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
