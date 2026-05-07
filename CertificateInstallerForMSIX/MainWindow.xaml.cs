@@ -16,7 +16,7 @@ namespace CertificateInstallerForMSIX
             InitializeComponent();
             ExtendsContentIntoTitleBar = true;
             this.SetIcon($"{AppContext.BaseDirectory}\\Assets\\Certificate.ico");
-            this.Move(50, 50);
+            this.CenterOnScreen();
         }
 
         public static class FilePicker
@@ -91,12 +91,18 @@ namespace CertificateInstallerForMSIX
         }
 
         [RelayCommand]
-        private void InstallCertificate()
+        private async Task InstallCertificateAsync()
         {
             try
             {
+                if (string.IsNullOrEmpty(PathBox.Text))
+                {
+                    await ShowMessageDialogAsync("Please select a certificate file first.", "No File Selected");
+                    return;
+                }
+
                 // Load the certificate from file
-                X509Certificate2 certificate = new(PathBox.Text, Password.Password);
+                X509Certificate2 certificate = X509CertificateLoader.LoadCertificateFromFile(PathBox.Text);
 
                 // Define the store location and name
                 StoreLocation storeLocation = StoreLocation.LocalMachine;
@@ -114,11 +120,13 @@ namespace CertificateInstallerForMSIX
                     store.Close();
                 }
 
+                await ShowMessageDialogAsync("Certificate installed successfully.", "Success");
+
                 Close();
             }
-            catch
+            catch (Exception ex)
             {
-
+                await ShowMessageDialogAsync($"Error: {ex.Message}", "Exception");
             }
         }
     }

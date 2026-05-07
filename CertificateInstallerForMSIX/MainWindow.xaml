@@ -7,10 +7,11 @@
     xmlns:local="using:CertificateInstallerForMSIX"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:winuiex="using:WinUIEx"
-    Title="Certificate Installer for MSIX"
-    Width="400"
+    Title="Certificate Installer for MSIX - Ivirius Community"
+    Width="540"
     Height="280"
     IsMaximizable="False"
+    IsMinimizable="False"
     IsResizable="False"
     mc:Ignorable="d">
     <winuiex:WindowEx.SystemBackdrop>
@@ -36,42 +37,55 @@
                 FontFamily="Segoe UI"
                 FontSize="12"
                 FontWeight="Normal"
-                Text="Certificate Installer for MSIX"
+                Text="Certificate Installer for MSIX - Ivirius Community"
                 TextTrimming="CharacterEllipsis" />
         </StackPanel>
         <StackPanel
-            Margin="25,40"
+            Margin="24,40"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             Orientation="Vertical"
             Spacing="8">
+            <InfoBar
+                Title="In order to sideload some untrusted applications, you need to install a proper certificate. This utility allows you to do that in fewer steps than what windows provides by default."
+                IsClosable="False"
+                IsOpen="True" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="8" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="PathBox" Header="Certificate path" />
+                <TextBox x:Name="PathBox" PlaceholderText="Certificate path" />
                 <Button
                     Grid.Column="2"
                     VerticalAlignment="Bottom"
-                    Command="{x:Bind GetCertificateCommand}"
-                    Content="Open" />
+                    Command="{x:Bind GetCertificateCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon FontSize="16" Glyph="&#xE838;" />
+                        <TextBlock Text="Browse" />
+                    </StackPanel>
+                </Button>
             </Grid>
-            <PasswordBox x:Name="Password" Header="Password (leave empty if none)" />
         </StackPanel>
         <Grid
-            Height="80"
+            Padding="24"
             VerticalAlignment="Bottom"
-            Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}">
+            Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="0,1,0,0">
             <Button
                 x:Name="Install"
                 Width="160"
-                Margin="24"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 Command="{x:Bind InstallCertificateCommand}"
-                Content="Install" />
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon FontSize="16" Glyph="&#xE896;" />
+                    <TextBlock Text="Install" />
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </winuiex:WindowEx>
